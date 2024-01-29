@@ -22,10 +22,11 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $login = $this->faker->unique()->word;
+
         return [
-            'login' => $this->faker->unique()->name,
-            'password' => bcrypt('1234'),
-            'api_token' => '1234'
+            'login' => $login,
+            'password' => bcrypt($login)
         ];
     }
 }

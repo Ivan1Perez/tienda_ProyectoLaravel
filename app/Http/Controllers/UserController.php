@@ -20,9 +20,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        /* $users = User::orderBy('login')
+        $users = User::orderBy('login')
             ->paginate(5);
-        return view('users.index', compact('users')); */
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -54,7 +54,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::findOrFail($id);
+        //return view('users.show', compact('user'));
     }
 
     /**
@@ -88,6 +89,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect()->route('users.index');
     }
 }
