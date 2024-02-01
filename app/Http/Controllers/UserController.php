@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -55,7 +56,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        //return view('users.show', compact('user'));
+        return view('users.show', compact('user'));
     }
 
     /**
@@ -66,7 +67,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -76,9 +78,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->login = $request->login;
+        $user->rol = $request->rol;
+        $user->update();
+
+        return redirect()->route('users.index');
     }
 
     /**

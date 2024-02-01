@@ -11,15 +11,11 @@
                     <a href="{{ route('users.show', $user) }}" class="bg-[#0d6efd] text-white px-1.5 py-0.5 rounded">
                         Ver detalle
                     </a>
-                    @if (auth()->check())
-                        @if (auth()->user()->rol === 'admin')
-                            <form action="{{ route('users.destroy', $user) }}" method="post">
-                                @method('DELETE')
-                                @csrf
-                                <button class="bg-red-600 text-white px-1.5 py-0.5 rounded">Borrar</button>
-                            </form>
-                        @endif
-                    @endif
+                    <form action="{{ route('users.destroy', $user) }}" method="post">
+                        @method('DELETE')
+                        @csrf
+                        <button class="bg-red-600 text-white px-1.5 py-0.5 rounded">Borrar</button>
+                    </form>
                 </li>
             @empty
                 <li>

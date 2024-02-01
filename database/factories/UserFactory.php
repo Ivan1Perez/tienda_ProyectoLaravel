@@ -26,7 +26,8 @@ class UserFactory extends Factory
 
         return [
             'login' => $login,
-            'password' => bcrypt($login)
+            'password' => bcrypt($login),
+            'rol' => 'cliente'
         ];
     }
 }
