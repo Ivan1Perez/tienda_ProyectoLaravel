@@ -17,7 +17,7 @@
         </div>
         <div class="form-group flex">
             <label for="rol" class="text-[1.5rem] mr-4">Rol:</label>
-            <select name="curso" id="curso" class="text-[1.2rem] text-center">
+            <select name="rol" id="rol" class="text-[1.2rem] text-center">
                 <option value="admin" {{ $user->rol === 'admin' ? 'selected' : '' }}>admin</option>
                 <option value="cliente" {{ $user->rol === 'cliente' ? 'selected' : '' }}>cliente</option>
             </select>
