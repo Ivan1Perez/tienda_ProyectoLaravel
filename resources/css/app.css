@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.productsContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background-color: white;
+    grid-column-gap: 2rem;
+    grid-row-gap: 2rem;
+    padding: 1rem;
+}
+
+.nav {
+    background-color: #d5d5d5;
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: center;
+}
+
+.datos_imagen_Producto{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 1rem;
+}

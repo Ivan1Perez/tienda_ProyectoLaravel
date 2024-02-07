@@ -16,16 +16,17 @@ use App\Http\Controllers\ProductoController;
 |
 */
 
-Route::get('/', function () {
-    return view('inicio');
-})->name('inicio');
-
 Route::resource('users', UserController::class);
 
-Route::resource('productos', ProductoController::class)
-    ->only(['index', 'show']);
+Route::group(["middleware" => "roles:admin,cliente"], function () {
+    Route::get('/', [ProductoController::class, 'index'])
+        ->name('inicio');
 
-Route::get('login', [LoginController::class, 'loginForm'])->name('login');
+    Route::resource('productos', ProductoController::class)
+        ->only(['index', 'show']);
+});
+
+Route::get('login', [LoginController::class, 'loginForm'])->middleware('guest')->name('login');
 Route::post('login', [LoginController::class, 'login']);
 
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');

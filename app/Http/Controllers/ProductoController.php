@@ -14,9 +14,8 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        /* $productos = Producto::get(); */
-        $productos = 'holi';
-        return $productos;
+        $productos = Producto::get();
+        return view('inicio', compact('productos'));
     }
 
     /**
@@ -48,7 +47,8 @@ class ProductoController extends Controller
      */
     public function show($id)
     {
-        //
+        $producto = Producto::findOrFail($id);
+        return view('productos.show', compact('producto'));
     }
 
     /**
