@@ -18,8 +18,16 @@
     align-items: center;
 }
 
-.datos_imagen_Producto{
+.datos_imagen_Producto {
     display: grid;
     grid-template-columns: 1fr 1fr;
     margin: 1rem;
+}
+
+.carritoIconContainer {
+    padding: 10px;
+    border-radius: 9999px;
+    background-color: #ededed;
+    border: 1px solid #858585;
+    cursor: pointer;
 }

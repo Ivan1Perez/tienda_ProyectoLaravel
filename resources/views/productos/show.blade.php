@@ -3,7 +3,7 @@
 
 @section('contenido')
 
-    <div class="float-left mt-2 mx-4 bg-[#0d6efd] text-white p-2 rounded">
+    <div class="float-left mt-2 mx-4 bg-[#0d6efd] text-white p-2 rounded cursor-pointer">
         <a href={{ route('productos.index') }}>Volver</a>
     </div>
 
