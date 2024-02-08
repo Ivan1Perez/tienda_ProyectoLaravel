@@ -20,7 +20,7 @@
             @endif
         </div>
     </div>
-    <div class="carritoIconContainer">
+    <a href={{ route('carrito.index') }} class="carritoIconContainer">
         <img class="w-[25px]" src="/img/shopping-cart.png" alt="carrito">
-    </div>
+    </a>
 </nav>

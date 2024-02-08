@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\CarritoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,3 +31,5 @@ Route::get('login', [LoginController::class, 'loginForm'])->middleware('guest')-
 Route::post('login', [LoginController::class, 'login']);
 
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::resource('carrito', CarritoController::class);

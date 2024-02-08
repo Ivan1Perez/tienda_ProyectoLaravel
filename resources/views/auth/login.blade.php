@@ -3,7 +3,7 @@
 
 @section('contenido')
     <div class="w-[500px] m-auto">
-        <h1 class="text-[1.5rem]">Login</h1>
+        <h1 class="text-[1.5rem] mt-4">Login</h1>
         @if (!empty($error))
             <div class="text-danger">
                 {{ $error }}
