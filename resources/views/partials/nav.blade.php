@@ -20,7 +20,9 @@
             @endif
         </div>
     </div>
-    <a href={{ route('carrito.index') }} class="carritoIconContainer">
-        <img class="w-[25px]" src="/img/shopping-cart.png" alt="carrito">
-    </a>
+    @if (auth()->check())
+        <a href={{ route('carrito.show', auth()->user()->id) }} class="carritoIconContainer">
+            <img class="w-[25px]" src="/img/shopping-cart.png" alt="carrito">
+        </a>
+    @endif
 </nav>

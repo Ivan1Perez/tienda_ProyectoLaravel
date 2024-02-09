@@ -1,10 +1,10 @@
 <ul>
-    @forelse ($carritos as $carrito)
+    @forelse ($lineasCarrito as $lineaCarrito)
 
         <li>
-            {{ $carrito['idProducto'] }}
-            {{ $carrito['cantidad'] }}
-            {{ $carrito['idUser'] }}
+            {{ $lineaCarrito['idProducto'] }}
+            {{ $lineaCarrito['cantidad'] }}
+            {{ $lineaCarrito['idUser'] }}
         </li>
 
     @empty
@@ -13,4 +13,4 @@
 
     @endforelse
 </ul>
-{{-- {{var_dump($carritos)}} --}}
+{{-- {{var_dump($message)}} --}}

@@ -14,11 +14,11 @@ class CarritoController extends Controller
      */
     public function index()
     {
-        $response = Http::get('http://carrito-api-proyecto-laravel/api/carrito', [
+        /* $response = Http::get('http://carrito-api-proyecto-laravel/api/carrito', [
             'idUser' => auth()->user()->id
         ]);
         $carritos = json_decode($response->body(), true);
-        return view('carrito.prueba', compact('carritos'));
+        return view('carrito.prueba', compact('carritos')); */
     }
 
     /**
@@ -45,12 +45,16 @@ class CarritoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($idUser)
     {
-        //
+        $response = Http::withToken('1234')->get('http://carritoApi_ProyectoLaravel/api/carrito', [
+            'idUser' => $idUser
+        ]);
+        $lineasCarrito = json_decode($response->body(), true);
+
+        return view('carrito.prueba', compact('lineasCarrito'));
     }
 
     /**
