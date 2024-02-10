@@ -1,6 +1,6 @@
 <nav class="nav flex justify-between px-4">
-    <div class="d-flex align-items-center font-bold">
-        <h4 class="mr-4 text-2xl">Blog</h4>
+    <a href="{{ route('productos.index') }}" class="mr-8 text-2xl">Memento | Pro Watches</a>
+    <div class="flex gap-4 items-center font-bold">
         <div class="flex gap-3 items-center text-[1.1rem]">
             <a href="{{ route('productos.index') }}">Inicio</a>
             @if (auth()->check())
@@ -9,20 +9,16 @@
                 @endif
             @endif
             @if (auth()->guest())
-                <div>
-                    <a href="{{ route('login') }}">Log in</a>
-                </div>
+                <a href="{{ route('login') }}">Log in</a>
             @endif
             @if (auth()->check())
-                <div>
-                    <a href="{{ route('logout') }}">Log out</a>
-                </div>
+                <a href="{{ route('logout') }}">Log out</a>
             @endif
         </div>
+        @if (auth()->check())
+            <a href={{ route('carrito.show', auth()->user()->id) }} class="carritoIconContainer">
+                <img class="w-[25px]" src="/img/shopping-cart.png" alt="carrito">
+            </a>
+        @endif
     </div>
-    @if (auth()->check())
-        <a href={{ route('carrito.show', auth()->user()->id) }} class="carritoIconContainer">
-            <img class="w-[25px]" src="/img/shopping-cart.png" alt="carrito">
-        </a>
-    @endif
 </nav>

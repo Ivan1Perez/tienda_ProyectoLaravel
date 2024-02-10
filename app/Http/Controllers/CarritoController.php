@@ -14,11 +14,7 @@ class CarritoController extends Controller
      */
     public function index()
     {
-        /* $response = Http::get('http://carrito-api-proyecto-laravel/api/carrito', [
-            'idUser' => auth()->user()->id
-        ]);
-        $carritos = json_decode($response->body(), true);
-        return view('carrito.prueba', compact('carritos')); */
+        //
     }
 
     /**
@@ -39,7 +35,13 @@ class CarritoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $response = Http::withToken('1234')->post('http://carritoapi_proyectolaravel/api/carrito', [
+            'idProducto' => (int)$request->get('idProducto'),
+            'nombre' => $request->get('nombre'),
+            'precio' => (int)$request->get('precio'),
+            'cantidad' => (int)$request->get('cantidad'),
+            'idUser' => auth()->user()->id
+        ]);
     }
 
     /**
@@ -47,14 +49,19 @@ class CarritoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($idUser)
+    public function show($idUserString)
     {
-        $response = Http::withToken('1234')->get('http://carritoApi_ProyectoLaravel/api/carrito', [
-            'idUser' => $idUser
-        ]);
-        $lineasCarrito = json_decode($response->body(), true);
 
-        return view('carrito.prueba', compact('lineasCarrito'));
+        $idUser = (int)$idUserString;
+
+        if (auth()->user()->id === $idUser) {
+            $response = Http::withToken('1234')->get('http://carritoapi_proyectolaravel/api/carrito/' . $idUser);
+
+            $lineasCarrito = json_decode($response->body(), true);
+            return view('carrito.show', compact('lineasCarrito'));
+        }
+
+        return redirect()->route('login');
     }
 
     /**

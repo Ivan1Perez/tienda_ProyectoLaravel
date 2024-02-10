@@ -2,7 +2,7 @@
 @section('titulo', 'Editar usuario')
 
 @section('contenido')
-    <h1 class="text-center text-[2rem]">Editar usuario</h1>
+    <h1 class="m-4 text-center text-[2rem]">Editar usuario</h1>
     <form action="{{ route('users.update', $user) }}" method="POST" class="w-[500px] m-auto space-y-4">
         @csrf
         @method('PUT')

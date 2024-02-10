@@ -32,4 +32,4 @@ Route::post('login', [LoginController::class, 'login']);
 
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::resource('carrito', CarritoController::class);
+Route::resource('carrito', CarritoController::class)->middleware('auth');

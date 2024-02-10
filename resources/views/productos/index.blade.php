@@ -8,7 +8,7 @@
                 <img class="w-[100px] m-auto" src="/img/{{ $producto->foto }}" alt={{ $producto->nombre }}>
                 <p class="mt-[1rem]"><b>{{ $producto->marca }}</b></p>
                 <p class="mb-[1rem]">
-                    <b>${{ number_format($producto->precio, 2, '.', ',') }}</b>
+                    <b>{{ number_format($producto->precio, 2, '.', ',') }}€</b>
                 </p>
                 <a href="{{ route('productos.show', $producto) }}" class="bg-[#0d6efd] text-white px-1.5 py-0.5 rounded">
                     Ver detalle

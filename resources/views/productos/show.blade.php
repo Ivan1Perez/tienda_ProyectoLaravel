@@ -16,9 +16,25 @@
                 </h1>
 
                 <div class="text-2xl">
-                    <p>Precio: <u>${{ number_format($producto->precio, 2, '.', ',') }}</u></p>
+                    <p>Precio: <u>{{ number_format($producto->precio, 2, '.', ',') }}€</u></p>
                     <p>Marca: '{{ $producto->marca }}'</p>
                 </div>
+
+                <form action="{{ route('carrito.store') }}" method="POST">
+                    @csrf
+
+                    <label for="cantidad">Cantidad:</label>
+                    <input type="number" value="1" min="1" max="100" class="form-control w-[5rem] m-auto"
+                        name="cantidad" id="cantidad">
+
+                    <input type="number" name="idProducto" id="idProducto" value="{{ $producto->id }}" class="hidden">
+                    <input type="text" name="nombre" id="nombre" value="{{ $producto->nombre }}" class="hidden">
+                    <input type="number" name="precio" id="precio" value="{{ $producto->precio }}" class="hidden">
+
+                    <button class="button1 bg-transparent mt-4">
+                        Comprar
+                    </button>
+                </form>
             </div>
 
             <div class="w-full bg-white text-center p-[1rem]">

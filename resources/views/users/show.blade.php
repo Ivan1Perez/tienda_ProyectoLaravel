@@ -3,7 +3,7 @@
 
 @section('contenido')
 
-    <div class="mx-4">
+    <div class="m-4">
 
         <div class="flex justify-center gap-2">
             <h1 class="text-[2rem] mr-10">
@@ -25,6 +25,7 @@
         <div class="text-2xl py-2 m-auto my-5 w-fit">
             <p class="">Login: <u>{{ $user->login }}</u></p>
             <p class="">Rol: '{{ $user->rol }}'</p>
+            <p class="">DNI: {{ $user->dni }}</p>
         </div>
 
         <div class="flex justify-between">

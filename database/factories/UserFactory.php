@@ -24,9 +24,13 @@ class UserFactory extends Factory
     {
         $login = $this->faker->unique()->word;
 
+        $abecedario = range('A', 'Z');
+        $letraAleatoria = $this->faker->randomElement($abecedario);
+
         return [
             'login' => $login,
             'password' => bcrypt($login),
+            'dni' => $this->faker->unique()->ean8 . $letraAleatoria,
             'rol' => 'cliente'
         ];
     }
