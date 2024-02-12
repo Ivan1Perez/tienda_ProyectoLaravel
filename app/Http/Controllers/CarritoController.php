@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use App\Models\Producto;
 
 class CarritoController extends Controller
 {
@@ -35,13 +36,20 @@ class CarritoController extends Controller
      */
     public function store(Request $request)
     {
-        $response = Http::withToken('1234')->post('http://carritoapi_proyectolaravel/api/carrito', [
-            'idProducto' => (int)$request->get('idProducto'),
+        $idProducto = (int)$request->get('idProducto');
+
+        $producto = Producto::findOrFail($idProducto);
+        $precio = $producto->precio;
+
+        $response = Http::withToken('1234')->post('http://carrito-api-proyecto-laravel/api/carrito', [
+            'idProducto' => $idProducto,
             'nombre' => $request->get('nombre'),
-            'precio' => (int)$request->get('precio'),
+            'precio' => $precio,
             'cantidad' => (int)$request->get('cantidad'),
             'idUser' => auth()->user()->id
         ]);
+
+        return redirect()->route('carrito.show', auth()->user()->id);
     }
 
     /**
@@ -55,7 +63,7 @@ class CarritoController extends Controller
         $idUser = (int)$idUserString;
 
         if (auth()->user()->id === $idUser) {
-            $response = Http::withToken('1234')->get('http://carritoapi_proyectolaravel/api/carrito/' . $idUser);
+            $response = Http::withToken('1234')->get('http://carrito-api-proyecto-laravel/api/carrito/' . $idUser);
 
             $lineasCarrito = json_decode($response->body(), true);
             return view('carrito.show', compact('lineasCarrito'));
@@ -84,7 +92,17 @@ class CarritoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $idCarrito = (int)$id;
+
+        Http::withToken('1234')->put('http://carrito-api-proyecto-laravel/api/carrito/'.$idCarrito, [
+            'cantidad' => $request->cantidad
+        ]);
+
+        $mensaje = "Carrito actualizado con éxito.";
+
+        session()->flash('mensaje_carritoActualizado', $mensaje);
+
+        return redirect()->route('carrito.show', auth()->user()->id);
     }
 
     /**

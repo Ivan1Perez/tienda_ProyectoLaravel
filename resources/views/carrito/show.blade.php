@@ -3,6 +3,10 @@
 
 @section('contenido')
 
+    @if (session()->has('mensaje_carritoActualizado'))
+        <p class="mesnaje_carritoActualizado">{{session('mensaje_carritoActualizado')}}</p>
+    @endif
+
     <h1 class="text-[1.5rem] font-bold pt-4 pb-0 pl-[3rem]">Carrito: </h1>
 
     <ul class="mx-4 p-4 border">
@@ -55,7 +59,7 @@
         <p class="text-center m-4 text-[1.5rem] font-bold">Importe total: {{ number_format($importe, 2, '.', ',') }}€</p>
     @endif
 
-    <div class="flex gap-4 justify-center">
+    <div class="flex gap-4 justify-center mb-4">
         @if (!$carritoVacio)
             <a href="/" class="button2 bg-slate-500 block">Confirmar pedido</a>
         @endif

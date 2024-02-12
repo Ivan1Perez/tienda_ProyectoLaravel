@@ -12674,12 +12674,6 @@ video {
 .pt-4 {
   padding-top: 1rem;
 }
-.pb-2 {
-  padding-bottom: 0.5rem;
-}
-.pb-4 {
-  padding-bottom: 1rem;
-}
 .text-center {
   text-align: center;
 }
@@ -12711,12 +12705,6 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-.text-\[1\.\] {
-  color: 1.;
-}
-.text-\[1\.5\] {
-  color: 1.5;
 }
 
 .productsContainer {
@@ -12783,4 +12771,11 @@ video {
 .button2:hover {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.mesnaje_carritoActualizado {
+    color: green;
+    font-size: 1.5rem;
+    text-align: center;
+    padding-top: 1rem;
 }
