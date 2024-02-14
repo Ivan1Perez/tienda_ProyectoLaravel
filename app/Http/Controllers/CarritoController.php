@@ -41,7 +41,7 @@ class CarritoController extends Controller
         $producto = Producto::findOrFail($idProducto);
         $precio = $producto->precio;
 
-        $response = Http::withToken('1234')->post('http://carrito-api-proyecto-laravel/api/carrito', [
+        Http::withToken('1234')->post('http://carrito-api-proyecto-laravel/api/carrito', [
             'idProducto' => $idProducto,
             'nombre' => $request->get('nombre'),
             'precio' => $precio,
@@ -59,13 +59,12 @@ class CarritoController extends Controller
      */
     public function show($idUserString)
     {
-
         $idUser = (int)$idUserString;
 
         if (auth()->user()->id === $idUser) {
             $response = Http::withToken('1234')->get('http://carrito-api-proyecto-laravel/api/carrito/' . $idUser);
 
-            $lineasCarrito = json_decode($response->body(), true);
+            $lineasCarrito = json_decode($response->body());
             return view('carrito.show', compact('lineasCarrito'));
         }
 
@@ -92,9 +91,7 @@ class CarritoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $idCarrito = (int)$id;
-
-        Http::withToken('1234')->put('http://carrito-api-proyecto-laravel/api/carrito/'.$idCarrito, [
+        Http::withToken('1234')->put('http://carrito-api-proyecto-laravel/api/carrito/'.$id, [
             'cantidad' => $request->cantidad
         ]);
 
@@ -113,6 +110,8 @@ class CarritoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Http::withToken('1234')->delete('http://carrito-api-proyecto-laravel/api/carrito/'.$id);
+
+        return redirect()->route('carrito.show', auth()->user()->id);
     }
 }
