@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\Producto;
+use App\Models\User;
 
 class CarritoController extends Controller
 {
@@ -113,5 +114,21 @@ class CarritoController extends Controller
         Http::withToken('1234')->delete('http://carrito-api-proyecto-laravel/api/carrito/'.$id);
 
         return redirect()->route('carrito.show', auth()->user()->id);
+    }
+
+    public function pedidoConfirmado($id) {
+        $idUser = (int)$id;
+
+        if (auth()->user()->id === $idUser) {
+            $response = Http::withToken('1234')->get('http://carrito-api-proyecto-laravel/api/carrito/' . $idUser);
+            $lineasCarrito = json_decode($response->body());
+
+            $user = User::findOrFail($idUser);
+
+            //Enviar datos del usuario.
+            return view('carrito.pedidoConfirmado', compact('lineasCarrito', 'user'));
+        }
+
+        return redirect()->route('inicio');
     }
 }

@@ -51,3 +51,47 @@
     text-align: center;
     padding-top: 1rem;
 }
+
+.confirmForm {
+    width: 500px;
+    margin: auto;
+    margin-top: 1rem;
+}
+
+.confirmForm label{
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.confirmForm input[type=text],
+select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.confirmForm .btnComprar, .confirmForm .btnCancelar{
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 14px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.confirmForm .btnCancelar{
+    background-color: #e80707d1;
+    color: white;
+}
+
+.confirmForm .btnComprar:hover {
+    background-color: #45a049;
+}

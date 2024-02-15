@@ -12,7 +12,6 @@
     <ul class="mx-4 p-4 border">
 
         @php
-            $carritoVacio = false;
             $importeTotal = 0;
         @endphp
 
@@ -57,20 +56,17 @@
             @endphp
 
         @empty
-            @php
-                $carritoVacio = true;
-            @endphp
             <li>El carrito está vacío.</li>
         @endforelse
     </ul>
 
-    @if (!$carritoVacio)
+    @if ($lineasCarrito)
         <p class="text-center m-4 text-[1.5rem] font-bold">Importe total: {{ number_format($importeTotal, 2, '.', ',') }}€</p>
     @endif
 
     <div class="flex gap-4 justify-center mb-4">
-        @if (!$carritoVacio)
-            <a href="/" class="button2 bg-slate-500 block">Confirmar pedido</a>
+        @if ($lineasCarrito)
+            <a href={{ route('pedidoConfirmado', $lineasCarrito[0]->idUser) }} class="button2 bg-slate-500 block">Confirmar pedido</a>
         @endif
         <a href="/" class="button2 bg-[#f3cf2b] block">Seguir comprando</a>
     </div>
