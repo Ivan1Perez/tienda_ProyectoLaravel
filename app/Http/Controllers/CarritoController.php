@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LineaPedido;
+use App\Models\Pedido;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\Producto;
@@ -92,7 +94,7 @@ class CarritoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Http::withToken('1234')->put('http://carrito-api-proyecto-laravel/api/carrito/'.$id, [
+        Http::withToken('1234')->put('http://carrito-api-proyecto-laravel/api/carrito/' . $id, [
             'cantidad' => $request->cantidad
         ]);
 
@@ -111,22 +113,49 @@ class CarritoController extends Controller
      */
     public function destroy($id)
     {
-        Http::withToken('1234')->delete('http://carrito-api-proyecto-laravel/api/carrito/'.$id);
+        Http::withToken('1234')->delete('http://carrito-api-proyecto-laravel/api/carrito/' . $id);
 
         return redirect()->route('carrito.show', auth()->user()->id);
     }
 
-    public function pedidoConfirmado($id) {
-        $idUser = (int)$id;
+    public function confirmarPedido(Request $request)
+    {
+
+        $lineasCarrito = json_decode($request->input('lineasCarrito'));
+        $idUser = $lineasCarrito[0]->idUser;
 
         if (auth()->user()->id === $idUser) {
-            $response = Http::withToken('1234')->get('http://carrito-api-proyecto-laravel/api/carrito/' . $idUser);
-            $lineasCarrito = json_decode($response->body());
+            return view('confirmarPedido', compact('lineasCarrito'));
+        }
 
-            $user = User::findOrFail($idUser);
+        return redirect()->route('inicio');
+    }
 
-            //Enviar datos del usuario.
-            return view('carrito.pedidoConfirmado', compact('lineasCarrito', 'user'));
+    public function pedidoConfirmado(Request $request)
+    {
+
+        $lineasCarrito = json_decode($request->lineasCarrito);
+        $idUser = $lineasCarrito[0]->idUser;
+
+        if (auth()->user()->id === $idUser) {
+
+            $pedido = new Pedido();
+            $pedido->dirEntrega = $request->direccion;
+            $pedido->dniUser = auth()->user()->dni;
+            $pedido->save();
+
+            $linea = 0;
+            foreach ($lineasCarrito as $lineaCarrito) {
+                $linea++;
+                $lineaPedido = new LineaPedido();
+                $lineaPedido->pedido()->associate($pedido);
+                $lineaPedido->nlinea = $linea;
+                $lineaPedido->idProducto = $lineaCarrito->idProducto;
+                $lineaPedido->cantidad = $lineaCarrito->cantidad;
+                $lineaPedido->save();
+            }
+
+            return redirect()->route('pedido.show', $pedido);
         }
 
         return redirect()->route('inicio');

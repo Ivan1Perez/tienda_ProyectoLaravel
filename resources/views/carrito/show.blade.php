@@ -44,7 +44,7 @@
                         </div>
                     </form>
                     @php
-                        $importeProducto = $lineaCarrito->precio * $lineaCarrito->cantidad
+                        $importeProducto = $lineaCarrito->precio * $lineaCarrito->cantidad;
                     @endphp
                     <p><b>Importe: {{ number_format($importeProducto, 2, '.', ',') }}€</b></p>
                 </div>
@@ -61,12 +61,17 @@
     </ul>
 
     @if ($lineasCarrito)
-        <p class="text-center m-4 text-[1.5rem] font-bold">Importe total: {{ number_format($importeTotal, 2, '.', ',') }}€</p>
+        <p class="text-center m-4 text-[1.5rem] font-bold">Importe total: {{ number_format($importeTotal, 2, '.', ',') }}€
+        </p>
     @endif
 
     <div class="flex gap-4 justify-center mb-4">
         @if ($lineasCarrito)
-            <a href={{ route('pedidoConfirmado', $lineasCarrito[0]->idUser) }} class="button2 bg-slate-500 block">Confirmar pedido</a>
+            <form action="{{ route('confirmarPedido') }}">
+                @csrf
+                <input type="hidden" name="lineasCarrito" value="{{ json_encode($lineasCarrito) }}">
+                <button type="submit" class="button2 bg-slate-500 block">Confirmar pedido</button>
+            </form>
         @endif
         <a href="/" class="button2 bg-[#f3cf2b] block">Seguir comprando</a>
     </div>

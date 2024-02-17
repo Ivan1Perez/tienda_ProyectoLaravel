@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\CarritoController;
+use App\Http\Controllers\PedidoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,4 +35,8 @@ Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::resource('carrito', CarritoController::class)->middleware('auth');
 
-Route::get('carrito.pedidoConfirmado/{id}', [CarritoController::class, 'pedidoConfirmado'])->middleware('auth')->name('pedidoConfirmado');
+Route::get('carrito.confirmarPedido', [CarritoController::class, 'confirmarPedido'])->middleware('auth')->name('confirmarPedido');
+
+Route::get('carrito.pedidoConfirmado', [CarritoController::class, 'pedidoConfirmado'])->middleware('auth')->name('pedidoConfirmado');
+
+Route::resource('pedido', PedidoController::class)->middleware('auth');
