@@ -153,9 +153,13 @@ class CarritoController extends Controller
                 $lineaPedido->idProducto = $lineaCarrito->idProducto;
                 $lineaPedido->cantidad = $lineaCarrito->cantidad;
                 $lineaPedido->save();
+
+                //Configurar esto para que elimine correctamente la linea del carrito mediante su id.
+                $this->destroy($lineaCarrito->id);
             }
 
-            return redirect()->route('pedido.show', $pedido);
+
+            return redirect()->route('pedido.show', $pedido->id);
         }
 
         return redirect()->route('inicio');

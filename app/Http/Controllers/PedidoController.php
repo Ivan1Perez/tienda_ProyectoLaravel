@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pedido;
+use App\Models\Producto;
 use Illuminate\Http\Request;
 
 class PedidoController extends Controller
@@ -46,9 +47,23 @@ class PedidoController extends Controller
      */
     public function show(Pedido $pedido)
     {
-        $pedidos = Pedido::with('lineasPedido')->get();
-        //Mostrar datos de cada producto del pedido. Llamar a pedido
-        return view('pedido.pedidoConfirmado', compact('pedidos'));
+        $pedidoConLineas = Pedido::with('lineasPedido')->find($pedido->id);
+        $lineasPedido = $pedidoConLineas->lineasPedido;
+
+
+        $datosPedido = [];
+        foreach ($lineasPedido as $lineaPedido) {
+            $producto = Producto::findOrFail($lineaPedido->idProducto);
+            $desgloseLinea = [
+                "nombre" => $producto->nombre,
+                "precio" => $producto->precio,
+                "cantidad" => $lineaPedido->cantidad,
+                "importe" => $producto->precio * $lineaPedido->cantidad
+            ];
+            array_push($datosPedido, $desgloseLinea);
+        }
+
+        return view('pedido.pedidoConfirmado', compact('datosPedido'));
     }
 
     /**
