@@ -14,6 +14,13 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
+        $usuarioAdmin = [
+            'login' => "root",
+            'password' => bcrypt("root"),
+            'dni' => "11111111K",
+            'rol' => 'admin'
+        ];
+        User::create($usuarioAdmin);
         User::factory()->count(12)->create();
     }
 }

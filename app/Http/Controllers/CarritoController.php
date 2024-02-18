@@ -7,7 +7,6 @@ use App\Models\Pedido;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\Producto;
-use App\Models\User;
 
 class CarritoController extends Controller
 {
@@ -154,10 +153,8 @@ class CarritoController extends Controller
                 $lineaPedido->cantidad = $lineaCarrito->cantidad;
                 $lineaPedido->save();
 
-                //Configurar esto para que elimine correctamente la linea del carrito mediante su id.
                 $this->destroy($lineaCarrito->id);
             }
-
 
             return redirect()->route('pedido.show', $pedido->id);
         }

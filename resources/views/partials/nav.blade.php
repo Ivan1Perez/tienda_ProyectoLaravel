@@ -18,6 +18,7 @@
         @if (auth()->check())
             <a href="{{ route('carrito.show', auth()->user()->id) }}" class="carritoIconContainer">
                 <img class="w-[25px]" src="/img/shopping-cart.png" alt="carrito">
+                <span class="bg-blue-500 text-white rounded-full absolute px-[0.5rem] py-[0.2rem] right-4">{{ mostrarCantidadCarrito() }}</span>
             </a>
         @endif
     </div>
